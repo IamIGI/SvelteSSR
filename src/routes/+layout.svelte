@@ -1,11 +1,42 @@
-<script lang="ts">
-	import favicon from '$lib/assets/favicon.svg';
+<script>
+  import { page } from '$app/state';
 
-	let { children } = $props();
+  let { children } = $props();
 </script>
 
-<svelte:head>
-	<link rel="icon" href={favicon} />
-</svelte:head>
+<div class="container">
+  <header
+    class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"
+  >
+    <a
+      href="/"
+      class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+    >
+      <span class="fs-4">My app</span>
+    </a>
 
-{@render children()}
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <!-- Active link -->
+        <a
+          href="/"
+          class="nav-link"
+          class:active={page.url.pathname === '/'}>Home</a
+        >
+      </li>
+      <li class="nav-item">
+        <a href="/contact" class="nav-link">Contact</a>
+      </li>
+      <li class="nav-item">
+        <a href="/users/user/8" class="nav-link">Users</a>
+      </li>
+      <!-- prefetching data -->
+      <li class="nav-item" data-sveltekit-preload-data>
+        <a href="/posts" class="nav-link">Posts</a>
+      </li>
+    </ul>
+  </header>
+  <div>
+    {@render children()}
+  </div>
+</div>
